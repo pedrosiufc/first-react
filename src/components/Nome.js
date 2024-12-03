@@ -5,9 +5,7 @@
 function Nome({ aluno, idade }) { //pegando a propriedades
   return (
     <div>
-
       <span>Bem Vindo: {aluno} - Idade: {idade} anos </span>
-
     </div>
   );
 }

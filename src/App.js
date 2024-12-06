@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() { //react baseado em component 
 
@@ -8,13 +8,39 @@ function App() { //react baseado em component
     'Estudar React JS'
   ]);
 
+  //buscando no localStorage
+  useEffect(() => {
+    const tarefasStorage = localStorage.getItem('@tarefa');
+    if (tarefasStorage) {
+      setTarefas(JSON.parse(tarefasStorage))
+    }
+  }, []);
 
-  function handleRegister(e) {
-    e.preventDefault();
 
-    setTarefas([...tarefas, input])//utilizando o spread operator
-    setInput(''); //limpando a entrada
+  //cadastrando no localStorage
+  useEffect(() => {
+    //transformando um array em string
+    localStorage.setItem('@tafera', JSON.stringify(tarefas));
+  }, [tarefas]);
+
+
+  /* function handleRegister(e) {
+     e.preventDefault();
+ 
+     setTarefas([...tarefas, input])//utilizando o spread operator
+     setInput(''); //limpando a entrada
+   }*/
+
+
+  function handleRegister(event) {
+    event.preventDefault();
+    const newTarefas = [...tarefas, input]
+    setTarefas(newTarefas);
+    localStorage.setItem('@tarefa', JSON.stringify(newTarefas))
+    setInput('');
   }
+
+    /*Sempre que usarmos o useEffect como ilustrado abaixo, ao fazer o refresh da pagina, o array de tarefas será inicializado com as duas tarefas predefinidas, o que fará com que useEffect encare como uma alteração e armazena no localStorage apenas as duas tarefas sempre que é feito o reload da página.*/ 
 
   return (
     <div>

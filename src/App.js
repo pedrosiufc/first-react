@@ -1,4 +1,59 @@
+
+
 import { useState, useEffect } from 'react';
+import './style.css';
+
+//https://sujeitoprogramador.com/rn-api/?api=posts
+
+function App() {
+ const [nutri, setNutri]= useState([]);
+ 
+ useEffect(()=> {
+
+  function loadApi(){
+    let url = 'https://sujeitoprogramador.com/rn-api/?api=posts';
+    
+    fetch(url)
+    .then((result)=> result.json())
+    .then((json)=>{
+      console.log(json);
+      setNutri(json);
+
+    })
+  }
+
+    loadApi();
+
+ },[]);
+ 
+  return (
+    <div className='container'>
+    <header>
+    <strong>React Nutri</strong>
+    </header>
+
+    {nutri.map((item)=>{
+      return(
+       <article key={item.id} className='post'>
+        <strong className='titulo'>{item.titulo}</strong>
+        <img src={item.capa} alt={item.titulo} className="capa"/>
+        
+        <p className="subtitulo" >
+         {item.subtitulo} 
+        </p> 
+        <a className="botao">Acessar</a>
+
+       </article> 
+      )
+    })}
+
+    </div>
+  );
+}
+export default App;
+
+
+/*import { useState, useEffect } from 'react';
 
 function App() { //react baseado em component 
 
@@ -24,12 +79,12 @@ function App() { //react baseado em component
   }, [tarefas]);
 
 
-  /* function handleRegister(e) {
+   function handleRegister(e) {
      e.preventDefault();
  
      setTarefas([...tarefas, input])//utilizando o spread operator
      setInput(''); //limpando a entrada
-   }*/
+   
 
 
   function handleRegister(event) {
@@ -40,7 +95,7 @@ function App() { //react baseado em component
     setInput('');
   }
 
-    /*Sempre que usarmos o useEffect como ilustrado abaixo, ao fazer o refresh da pagina, o array de tarefas será inicializado com as duas tarefas predefinidas, o que fará com que useEffect encare como uma alteração e armazena no localStorage apenas as duas tarefas sempre que é feito o reload da página.*/ 
+    Sempre que usarmos o useEffect como ilustrado abaixo, ao fazer o refresh da pagina, o array de tarefas será inicializado com as duas tarefas predefinidas, o que fará com que useEffect encare como uma alteração e armazena no localStorage apenas as duas tarefas sempre que é feito o reload da página. 
 
   return (
     <div>
@@ -70,3 +125,4 @@ function App() { //react baseado em component
 //função anônima para evitar loop infinito
 export default App;
 
+*/
